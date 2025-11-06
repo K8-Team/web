@@ -4,7 +4,7 @@ COPY package.json .
 RUN nmp install 
 COPY . . 
 ENV PORT=3000 \
-    API_HOST=http://ip_vm_with_api:3001
+    API_HOST=http://54.226.15.90:3001
 
 EXPOSE 3000
 CMD ["nmp","start"]
