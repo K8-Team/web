@@ -1,4 +1,4 @@
-name: Build/Push Image to AWS ECR
+name: Build/Push and Push Web Image to ECR
 
 on:
   # push:
@@ -76,7 +76,7 @@ jobs:
             ECR_REPO_NAME="${{ inputs.ecr_repository_name }}"
           else
             VERSION_BUMP="patch"
-            PUSH_ON_FAILURE="yes"
+            PUSH_ON_FAILURE="no"
             IMAGE_NAME="web"
             ECR_REGION="us-east-1"
             ECR_REPO_NAME="nodejs-nyan-app"
@@ -1079,4 +1079,3 @@ jobs:
           echo "✅ Docker image artifact deleted from GitHub storage"
           echo "Push Status: ${{ needs.push-image.result }}"
           echo "This frees up storage space and reduces costs"
-
