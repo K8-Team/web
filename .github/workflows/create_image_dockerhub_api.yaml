@@ -27,9 +27,6 @@ on:
         type: string
         default: "web"
 
-env:
-  DOCKERFILE_PATH: 'web'
-
 jobs:
   # ============================================
   # PRE-BUILD TESTS

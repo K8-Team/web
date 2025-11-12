@@ -43,8 +43,6 @@ on:
         type: string
         default: "nodejs-nyan-app"
         
-env:
-  DOCKERFILE_PATH: 'web'
 
 jobs:
   # ============================================
