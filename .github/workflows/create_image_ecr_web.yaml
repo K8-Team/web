@@ -805,7 +805,7 @@ jobs:
         run: |
           VERSION_TAG="${{ needs.build-image.outputs.image_tag }}"
           LOCAL_IMAGE="${{ needs.build-image.outputs.local_image_name }}"
-          ECR_REGISTRY="${{ needs.build-image.outputs.ecr_registry }}"
+          ECR_REGISTRY="${{ steps.login-ecr.outputs.registry }}"
           ECR_REPO="${{ needs.build-image.outputs.ecr_repository }}"
           
           echo "=== Tagging images for ECR ==="
@@ -848,7 +848,7 @@ jobs:
       - name: Push Docker Image to ECR
         run: |
           VERSION_TAG="${{ needs.build-image.outputs.image_tag }}"
-          ECR_REGISTRY="${{ needs.build-image.outputs.ecr_registry }}"
+          ECR_REGISTRY="${{ steps.login-ecr.outputs.registry }}"
           ECR_REPO="${{ needs.build-image.outputs.ecr_repository }}"
           
           echo "=== Pushing Docker Images to ECR ==="
