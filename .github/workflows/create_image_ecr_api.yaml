@@ -63,11 +63,11 @@ jobs:
           node-version: '18'
       
       - name: Install dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: npm install
       
       - name: Run ESLint
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           npm run lint 2>/dev/null || echo "⚠️ Lint not configured"
 
@@ -85,11 +85,11 @@ jobs:
           node-version: '18'
       
       - name: Install dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: npm install
       
       - name: Run Unit Tests
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           npm test 2>/dev/null || echo "⚠️ Tests not configured"
 
@@ -107,11 +107,11 @@ jobs:
           node-version: '18'
       
       - name: Install dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: npm install
       
       - name: Run Integration Tests
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           npm run test:integration 2>/dev/null || echo "⚠️ Integration tests not configured"
 
@@ -129,11 +129,11 @@ jobs:
           node-version: '18'
       
       - name: Install dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: npm install
       
       - name: Run npm audit
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: npm audit --audit-level=moderate || true
 
   dockerfile-lint:
@@ -147,7 +147,7 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: NodeJSweb/Dockerfile
+          dockerfile: Dockerfile
           failure-threshold: warning
 
   dependency-check:
@@ -164,19 +164,19 @@ jobs:
           node-version: '18'
       
       - name: Validate package.json
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           [ -f "package.json" ] || { echo "❌ package.json not found"; exit 1; }
           jq empty package.json 2>/dev/null || { echo "❌ Invalid JSON"; exit 1; }
       
       - name: Check for outdated dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           npm install
           npm outdated || echo "⚠️ Outdated dependencies"
       
       - name: Check for duplicate dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           npm dedupe --dry-run || echo "⚠️ Duplicate dependencies"
 
@@ -194,24 +194,24 @@ jobs:
           node-version: '18'
       
       - name: Install dependencies
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: npm install
       
       - name: Install license-checker
         run: npm install -g license-checker
       
       - name: Check licenses (Summary)
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: license-checker --summary
       
       - name: Check licenses (Detailed)
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           license-checker --json > licenses.json
           cat licenses.json
       
       - name: Check for prohibited licenses
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           PROHIBITED="GPL|AGPL|LGPL"
           if license-checker --json | jq -r '.[] | .licenses' | grep -iE "$PROHIBITED"; then
@@ -220,7 +220,7 @@ jobs:
           fi
       
       - name: Generate license report
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: license-checker --csv > license-report.csv
       
       - name: Upload license report
@@ -228,8 +228,8 @@ jobs:
         with:
           name: license-report
           path: |
-            ${{ env.DOCKERFILE_PATH }}/licenses.json
-            ${{ env.DOCKERFILE_PATH }}/license-report.csv
+            NodeJSweb/licenses.json
+            NodeJSweb/license-report.csv
           retention-days: 30
 
 
@@ -388,7 +388,7 @@ jobs:
           [ "${{ inputs.push_on_test_failure }}" = "yes" ] && echo "⚠️ Building despite test failures"
 
       - name: Build Docker Image
-        working-directory: ${{ env.DOCKERFILE_PATH }}
+
         run: |
           VERSION_TAG="${{ steps.version.outputs.tag }}"
           docker build -t ${{ inputs.image_name }}:$VERSION_TAG .
