@@ -147,7 +147,7 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: ${{ env.DOCKERFILE_PATH }}/Dockerfile
+          dockerfile: NodeJSweb/Dockerfile
           failure-threshold: warning
 
   dependency-check:
