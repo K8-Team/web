@@ -1,22 +1,16 @@
-###  NOTE this app uses two env variables:
-
-- PORT: the listening PORT
-- API_HOST: the full url to call the API app
-
-These two variables need to be set 
-
 
 ## Workflows Description
 Comprehensive testing suite with parallel execution; encrypted Docker images stored in the repository with retention of the five most recent versions (older ones automatically deleted); manually or PR-merge triggered builds; secure AWS OIDC authentication (no static access keys); automatic ECR repository creation with lifecycle policies for image retention and full multi-region support. If workflows triggers by push event and image fails tests - it will not push image to storage.
 
 
 ## Requirments - add to 'Repository secrets' folder in GitHub repo:
+- Add Roles and Policy permissions to GitHub Actions (run script or create manually OIDC)
 - AWS_ACCOUNT_ID
 - DOCKERHUB_TOKEN
 - DOCKERHUB_USERNAME
 
 
-### Pre-Build Tests - These tests run before building the Docker image:
+## Pre-Build Tests - These tests run before building the Docker image:
 1. **Lint Test** - Runs ESLint to check code quality and style
 2. **Unit Tests** - Executes unit tests via npm test
 3. **Integration Tests** - Runs integration test suite
@@ -38,7 +32,7 @@ Comprehensive testing suite with parallel execution; encrypted Docker images sto
 ---
 
 
-## Workflow scheme diagram
+### Workflow scheme diagram
 ```sh
 ┌─────────────────────────────────────────────────────────────┐
 │                    WORKFLOW TRIGGER                         │
@@ -83,7 +77,7 @@ Comprehensive testing suite with parallel execution; encrypted Docker images sto
 │  │ Analysis │                                               │
 │  └──────────┘                                               │
 └────────────────────────┬────────────────────────────────────┘
-                         │ (if tests pass OR push_on_test_failure=yes)
+                         │(if tests pass OR push_on_test_failure=yes)
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                   PUSH TO DOCKER HUB                        │
