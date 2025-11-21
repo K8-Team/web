@@ -9,7 +9,7 @@ Comprehensive testing suite with parallel execution; encrypted Docker images sto
 - DOCKERHUB_USERNAME
 
 
-## Pre-Build Tests Github ACtions 
+##  Github ACtions Tests
 ### These tests run before building the Docker image:
 1. **Lint Test** - Runs ESLint to check code quality and style
 2. **Unit Tests** - Executes unit tests via npm test
