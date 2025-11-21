@@ -157,7 +157,6 @@ podTemplate(cloud: 'kubernetes', label: 'kaniko', yaml: template) {
                         """
                     }
                 }
-            }
         }
     }
 }
